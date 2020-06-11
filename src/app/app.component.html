@@ -1,0 +1,8 @@
+<div>Forms Memory leaks Test</div>
+<button (click)="initializeForm()">InitForm</button> 
+<button (click)="destroyForm()">DestroyForm</button>
+
+<hr>
+<div id="myForm" *ngIf="appService.isFormInitialized">
+  <hello></hello>
+</div>
