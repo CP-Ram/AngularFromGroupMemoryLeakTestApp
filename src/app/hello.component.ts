@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
-import { startWith, pairwise, distinctUntilChanged } from 'rxjs/operators';
+import { startWith, pairwise, distinctUntilChanged,takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -64,9 +64,10 @@ export class HelloComponent implements OnInit,OnDestroy  {
       fctrl.valueChanges
         .pipe(
           startWith(null),
-          pairwise()
-        )
-        .pipe(distinctUntilChanged())
+          pairwise(),
+          distinctUntilChanged(),
+		  takeUntil(this.unsubscribe)
+		  )
         .subscribe(([prev, next]: [any, any]) => {
           // var configId = group.get("name");
           console.log(next);
